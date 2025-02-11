@@ -23,7 +23,6 @@ public static class ShapeFactory
             StrokeThickness = 2,
             Uid = Guid.NewGuid().ToString()
         };
-        Console.WriteLine($"{polygon.ActualHeight} {polygon.ActualWidth}");
         return polygon;
     }
 

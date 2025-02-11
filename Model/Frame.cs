@@ -14,9 +14,6 @@ public class Frame : Shape
 
     private Shape? _selectedShape;
     
-    private double _x;
-    private double _y;
-    
     private bool _isResizing;
     
     private static readonly double MarkerRadius = 5;
@@ -108,10 +105,10 @@ public class Frame : Shape
 
     private void DrawCornerMarkers(DrawingContext drawingContext)
     {
-        drawingContext.DrawEllipse(Brushes.White, null, new Point(_x, _y), MarkerRadius, MarkerRadius);
-        drawingContext.DrawEllipse(Brushes.White, null, new Point(_x + Width, _y), MarkerRadius, MarkerRadius);
-        drawingContext.DrawEllipse(Brushes.White, null, new Point(_x, _y + Height), MarkerRadius, MarkerRadius);
-        drawingContext.DrawEllipse(Brushes.White, null, new Point(_x + Width, _y + Height), MarkerRadius, MarkerRadius);
+        drawingContext.DrawEllipse(Brushes.White, null, new Point(0, 0), MarkerRadius, MarkerRadius);
+        drawingContext.DrawEllipse(Brushes.White, null, new Point(Width, 0), MarkerRadius, MarkerRadius);
+        drawingContext.DrawEllipse(Brushes.White, null, new Point(0, Height), MarkerRadius, MarkerRadius);
+        drawingContext.DrawEllipse(Brushes.White, null, new Point(Width, Height), MarkerRadius, MarkerRadius);
     }
 
     protected override void OnMouseEnter(MouseEventArgs e)

@@ -14,6 +14,7 @@
                 <Button Content="Ellipse" Command="{Binding AddShapeCommand}" CommandParameter="Ellipse"/>
                 <Button Content="Triangle" Command="{Binding AddShapeCommand}" CommandParameter="Triangle"/>
                 <Button Content="Rectangle" Command="{Binding AddShapeCommand}" CommandParameter="Rectangle"/>
+                <Button Content="Delete" Command="{Binding RemoveShapeCommand}"/>
             </StackPanel>
             <Canvas Name="DrawingCanvas" Background="LightGray" Width="600" Height="400"
                     MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" MouseUp="Canvas_MouseUp">

@@ -7,16 +7,17 @@ using System.Windows.Media;
 using shape_builder.Command;
 using shape_builder.Model;
 using Frame = shape_builder.Model.Frame;
+using Shape = System.Windows.Shapes.Shape;
 
 namespace shape_builder.ViewModel;
 
 public class MainViewModel : INotifyPropertyChanged
 {
-    public ObservableCollection<System.Windows.Shapes.Shape> Shapes { get; set; }
-
+    public ObservableCollection<Shape> Shapes { get; set; }
+    
     private Point _startPoint;
     private bool _isShapeMoving;
-    private System.Windows.Shapes.Shape? _selectedShape;
+    private Shape? _selectedShape;
     private readonly double _canvasHeight;
     private readonly double _canvasWidth;
     private readonly Frame _selectedShapeFrame;
@@ -25,7 +26,7 @@ public class MainViewModel : INotifyPropertyChanged
     
     public MainViewModel(Canvas initCanvas)
     {
-        Shapes = new ObservableCollection<System.Windows.Shapes.Shape>();
+        Shapes = new ObservableCollection<Shape>();
         _selectedShape = null;
         
         _canvasHeight = initCanvas.Height;
@@ -76,15 +77,10 @@ public class MainViewModel : INotifyPropertyChanged
     }
 
     
-    private void SelectShape(System.Windows.Shapes.Shape? shape, Point cursorPosition)
+    private void SelectShape(Shape? shape, Point cursorPosition)
     {
         if (shape != null)
         {
-            if (_selectedShape != null)
-            {
-                Panel.SetZIndex(_selectedShape, 0);
-            }
-
             _selectedShape = shape;
             _selectedShapeFrame.SelectShape(_selectedShape);
 
@@ -109,7 +105,6 @@ public class MainViewModel : INotifyPropertyChanged
     {
         if (_selectedShape != null)
         {
-            Panel.SetZIndex(_selectedShape, 0);
             _selectedShapeFrame.DeselectShape();
             _selectedShape = null;
 
@@ -163,7 +158,7 @@ public class MainViewModel : INotifyPropertyChanged
     
     private void AddShape(ShapeType type)
     {
-        System.Windows.Shapes.Shape shape = type switch
+        Shape shape = type switch
         {
             ShapeType.Ellipse => ShapeFactory.GetEllipse(),
             ShapeType.Triangle => ShapeFactory.GetTriangle(),
@@ -188,11 +183,11 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
     
-    private System.Windows.Shapes.Shape? GetShapeAtMousePosition(Point position)
+    private Shape? GetShapeAtMousePosition(Point position)
     {
         return Shapes.Reverse().FirstOrDefault(shape => !(shape is Frame) && IsMouseOverShape(shape, position));
     }
-    private bool IsMouseOverShape(System.Windows.Shapes.Shape shape, Point position)
+    private bool IsMouseOverShape(Shape shape, Point position)
     {
         var bounds = VisualTreeHelper.GetDescendantBounds(shape);
         var shapeTopLeft = new Point(Canvas.GetLeft(shape), Canvas.GetTop(shape));
